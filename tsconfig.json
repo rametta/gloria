@@ -19,7 +19,7 @@
     "resolveJsonModule": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*", "index.d.ts"
   ],
   "compileOnSave": false
 }
