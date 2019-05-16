@@ -1,0 +1,10 @@
+{
+  "name": "gloria",
+  "version": 2,
+  "alias": "gloria.now.sh",
+  "public": true,
+  "regions": ["cle1"],
+  "builds": [
+    { "src": "lib/index.js", "use": "@now/node" }
+  ]
+}

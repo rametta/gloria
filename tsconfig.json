@@ -10,12 +10,12 @@
     "noUnusedLocals": false,
     "pretty": true,
     "strict": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "./lib",
     "skipLibCheck": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "declaration": true,
+    "declaration": false,
     "resolveJsonModule": true
   },
   "include": [
