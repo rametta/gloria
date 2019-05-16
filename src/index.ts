@@ -8,4 +8,4 @@ const bot = (app: Application) => {
   })
 }
 
-export = process.env.NODE_ENV === 'dev' ? bot : serverless(bot)
+export = serverless(bot)
