@@ -5,6 +5,9 @@
   "public": true,
   "regions": ["cle1"],
   "builds": [
-    { "src": "lib/index.js", "use": "@now/node" }
+    { "src": "/lib/index.js", "use": "@now/node" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/lib/index.js" }
   ]
 }
