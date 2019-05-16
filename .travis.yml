@@ -9,6 +9,8 @@ notifications:
 cache:
   directories:
     - "node_modules"
+env:
+  NODE_ENV: production
 script:
   - yarn test
   - yarn build
