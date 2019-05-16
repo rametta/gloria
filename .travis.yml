@@ -1,6 +1,15 @@
 sudo: false
 language: node_js
+git:
+  depth: false
 node_js:
   - "8.3"
 notifications:
   disabled: true
+cache:
+  directories:
+    - "node_modules"
+script:
+  - yarn test
+  - yarn build
+  - yarn deploy

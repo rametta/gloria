@@ -19,8 +19,8 @@
     "build": "tsc -p tsconfig.json",
     "dev": "nodemon --exec \"npm start\"",
     "start": "probot run ./lib/index.js",
-    "lint": "standard **/*.ts --fix",
-    "test": "jest && standard **/*.ts",
+    "deploy": "cd lib && now -e NODE_ENV=production -e APP_ID=$APP_ID -e WEBHOOK_SECRET=$WEBHOOK_SECRET -e PRIVATE_KEY=$PRIVATE_KEY",
+    "test": "jest",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
@@ -35,8 +35,8 @@
     "eslint-plugin-typescript": "^0.12.0",
     "jest": "^23.4.0",
     "nodemon": "^1.17.2",
+    "now": "^15.2.0",
     "smee-client": "^1.0.2",
-    "standard": "^10.0.3",
     "ts-jest": "^23.0.0",
     "typescript": "^2.9.2",
     "typescript-eslint-parser": "^18.0.0"
