@@ -1,0 +1,3 @@
+SET_TICKETS: true
+JIRA_LINK: 'https://gloriajira.com/'
+TICKET_PREFIX: gb
