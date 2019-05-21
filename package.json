@@ -25,9 +25,7 @@
   },
   "dependencies": {
     "@chadfawcett/probot-serverless-now": "^1.0.0",
-    "@types/nock": "^9.3.0",
-    "nock": "^10.0.0",
-    "pratica": "^1.4.16",
+    "pratica": "^1.4.18",
     "probot": "^7.2.0"
   },
   "devDependencies": {
