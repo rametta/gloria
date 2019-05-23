@@ -6,14 +6,22 @@ const getBody = get<string>(['payload', 'pull_request', 'body'])
 
 const getTitle = get<string>(['payload', 'pull_request', 'title'])
 
+const tableAnchor = (name: string) => (link: string) =>
+  `<td><a title="${name}" target="_blank" href="${link}">${name.toUpperCase()}</a></td>`
+
+const generateLink = (base: string) => (ticket: string) =>
+  base.charAt(base.length - 1) === '/'
+    ? base + ticket
+    : base + '/' + ticket
+
 const extractTickets = (jira: string) => (prefix: string) => (title?: string) =>
   Maybe(title)
     .chain(t => Maybe(t.match(new RegExp(prefix + '-\\d+', 'gi'))))
-    .map(tickets => tickets.map(t => `* [${t}](${jira}${t})`))
+    .map(tickets => tickets.map(t => tableAnchor(t)(generateLink(jira)(t))))
 
 const isBot = (ctx: Context): Maybe<Context> => ctx.isBot
-  ? Just(ctx)
-  : Nothing
+  ? Nothing
+  : Just(ctx)
 
 const getTickets = (config: Config) => (ctx: Context): Maybe<string[]> =>
   (config.SET_TICKETS && config.JIRA_LINK !== '' && config.TICKET_PREFIX !== '')
@@ -21,7 +29,12 @@ const getTickets = (config: Config) => (ctx: Context): Maybe<string[]> =>
     : Nothing
 
 const joinTickets = (tickets: string[]) =>
-  `<!--ticketstart-->#### 📃 Tickets\n${tickets.join('\n') + '\n'}<!--ticketend-->\n`
+  `<!--ticketstart-->
+  #### 📃 Tickets
+  <table><tr>
+  ${tickets.join('')}
+  </tr></table>
+  <!--ticketend-->\n`
 
 const shouldAddTickets = (ctx: Context) => (tickets: string[]): Maybe<string> =>
   getBody(ctx)
@@ -30,16 +43,14 @@ const shouldAddTickets = (ctx: Context) => (tickets: string[]): Maybe<string> =>
       : Nothing
     )
 
-const createBody = (ctx: Context) => (body: string) => ctx.issue({ body })
-
-export const prTickets = (ctx: Context): Promise<void> =>
+export const prTickets = (ctx: Context): Promise<void> => 
   getConfig(ctx)
     .then(config => {
       isBot(ctx)
         .chain(getTickets(config))
         .chain(shouldAddTickets(ctx))
         .cata({
-          Just: body => ctx.github.pullRequests.update(createBody(ctx)(body)),
-          Nothing: () => {}
+          Just: body => ctx.github.pullRequests.update(ctx.issue({ body })),
+          Nothing: () => ctx.log('PR Body not updated with tickets')
         })
     })
