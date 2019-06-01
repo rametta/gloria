@@ -1,4 +1,6 @@
 SET_TICKETS: true
 POST_CHECKS: true
 JIRA_LINK: 'https://gloriajira.com/'
-TICKET_PREFIX: gb
+TICKET_PREFIXS:
+  - gb
+  - fix

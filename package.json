@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "nodemon --exec \"npm start\"",
+    "dev": "yarn build && nodemon --exec \"npm start\"",
     "start": "probot run ./lib/index.js",
     "deploy": "now --local-config=./now.json --token=$NOW_TOKEN -e NODE_ENV=production -e APP_ID=$APP_ID -e WEBHOOK_SECRET=$WEBHOOK_SECRET -e PRIVATE_KEY=$PRIVATE_KEY",
     "test": "jest",
